@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'desafio',
     'rest_framework',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
