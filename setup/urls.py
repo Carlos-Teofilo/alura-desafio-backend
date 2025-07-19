@@ -18,14 +18,23 @@ from django.contrib import admin
 from django.urls import path, include
 
 from rest_framework import routers
-from desafio.views import VideosViewSet, CategoriasViewSet, ListaVideosPorCategoria
+from desafio.views import VideosViewSet, CategoriasViewSet, ListaVideosPorCategoria, ListaVideosFree
 
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+    TokenVerifyView,
+)
 router = routers.DefaultRouter()
 router.register('videos', VideosViewSet, basename="videos")
 router.register('categorias', CategoriasViewSet, basename="categorias")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('categorias/<int:pk>/videos/', ListaVideosPorCategoria.as_view(), name='lista-videos-por-categoria'),
+    path('videos/free/', ListaVideosFree.as_view(), name='lista-videos-free'),
     path('', include(router.urls)),
-    path('categorias/<int:pk>/videos/', ListaVideosPorCategoria.as_view(), name='lista-videos-por-categoria')
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
 ]
