@@ -1,0 +1,1 @@
+web: gunicorn alura_desafio_backend.wsgi --log-file -
